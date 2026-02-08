@@ -166,11 +166,25 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [grid, gameOver]); // Added gameOver to dependencies
   
-  // Find the highest number on the board
-  const maxTile = Math.max(...grid.flat().map(tile => tile ? tile.val : 0));
-  // Calculate percentage (clamped at 100%)
-  const progress = Math.min(Math.round((maxTile / 2048) * 100), 100);
+const maxTile = Math.max(...grid.flat().map(tile => tile ? tile.val : 0));
 
+// Calculate log base 2 of the max tile
+// 2 -> 1, 4 -> 2, 8 -> 3 ... 2048 -> 11
+const tilePower = maxTile > 0 ? Math.log2(maxTile) : 0;
+
+// Map the power (0-11) to your FF Logs tiers
+const getProgress = (pow) => {
+  if (pow >= 11) return 100; // 2048
+  if (pow === 10) return 99;  // 1024
+  if (pow === 9)  return 95;  // 512
+  if (pow === 8)  return 75;  // 256
+  if (pow === 7)  return 50;  // 128
+  if (pow === 6)  return 25;  // 64
+  if (pow === 5)  return 10;  // 32
+  return 0;                   // Below 32
+};
+
+const progress = getProgress(tilePower);
   const getProgressColor = (pct) => {
     if (pct > 100) return "#edc22e"; 
     if (pct >= 99) return "#e268a8";
@@ -181,6 +195,8 @@ function App() {
     return "#666666"; // Default Gray
   };
 
+
+  
   const progressColor = getProgressColor(progress);
 
   return (
@@ -193,7 +209,7 @@ function App() {
         <div className="stats-section">
           <div className="score-box">
             <span className="label">Logs</span>
-            <span className="value" style={{ color: progressColor}}>{progress}%</span>
+            <span className="value" style={{ color: progressColor }}>{progress}%</span>
           </div>
           <button className="reset-button" onClick={resetGame}>New Game</button>
         </div>

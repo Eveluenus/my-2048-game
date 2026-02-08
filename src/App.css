@@ -120,6 +120,12 @@ html, body {
   font-weight: bold;
 }
 
+.score-box.highlight .value {
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.3); /* Adds depth to the color */
+  transition: color 0.4s ease-in-out; /* Smoothly shifts colors when you merge */
+}
+
 .stats-section {
   display: flex;
   flex-direction: column;
