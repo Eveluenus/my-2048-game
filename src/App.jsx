@@ -185,6 +185,7 @@ const getProgress = (pow) => {
 };
 
 const progress = getProgress(tilePower);
+
   const getProgressColor = (pct) => {
     if (pct > 100) return "#edc22e"; 
     if (pct >= 99) return "#e268a8";
@@ -195,8 +196,6 @@ const progress = getProgress(tilePower);
     return "#666666"; // Default Gray
   };
 
-
-  
   const progressColor = getProgressColor(progress);
 
   return (
@@ -204,7 +203,7 @@ const progress = getProgress(tilePower);
       <div className="game-header">
         <div className="title-section">
           <h1 className="main-title">黑魔</h1>
-          <p className="sub-title">Model Evolution</p>
+          <p className="sub-title">珍爱生命 远离炒股</p>
         </div>
         <div className="stats-section">
           <div className="score-box">
